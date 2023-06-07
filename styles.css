@@ -45,7 +45,7 @@ body {
   width: 100%;
 }
 
-input {
+.todo-form input {
   flex: 1;
   border: none;
   outline: none;
@@ -75,7 +75,7 @@ ul li {
   color: #000;
   list-style: none;
   font-size: 17px;
-  padding: 12px 50px 12px 50px;
+  padding: 12px 0px 12px 0px;
   user-select: none;
   cursor: pointer;
   position: relative;
@@ -88,7 +88,7 @@ ul li {
 
 }
 ul li p{
-    width: 75%;
+    width: 60%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -112,28 +112,14 @@ ul li p{
   transition: transform 0.25s ease;
   background: linear-gradient(135deg, #1798fb 0%, #2D5CFE 100%);
 }
-ul li::before {
-  content: '';
-  position: absolute;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  background-image: url(image/unchecked.png);
-  background-size: cover;
-  background-position: center;
-  top: 12px;
-  left: 8px;
-}
 
 ul li.checked {
   color: #1E90FF;
   text-decoration: line-through #1E90FF;
 }
-
-ul li.checked::before {
-  background-image: url(image/Eo_circle_light-blue_checkmark.svg);
+ul li input{
+  width: 10%;;
 }
-
 ul li span {
   position: absolute;
   right: 0;
