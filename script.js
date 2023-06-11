@@ -3,17 +3,49 @@ const API_URL = 'https://64106f42be7258e14529c12f.mockapi.io';
 const todoForm = document.querySelector('.todo-form');
 const todoInput = document.querySelector('.todo-input');
 const todoList = document.querySelector('.todo-list');
-
+const clearAll = document.querySelector(".clear-btn");
 // Call API
 async function fetchTodos() {
   try {
     const response = await fetch(`${API_URL}/todos`);
     const todos = await response.json();
+    const filters = document.querySelectorAll('.filters span');
+      filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelector('span.active').classList.remove('active');
+          btn.classList.add('active');
+          filterTasks(btn.id);
+        });
+      });
     todos.forEach(todo => {
       displayTodoItem(todo);
+      updateTaskCount();
     });
   } catch (error) {
     console.error('Error fetching todos:', error);
+  }
+}
+
+//count
+function updateTaskCount() {
+  const countElement = document.querySelector(".count");
+  const taskCount = todoList.children.length;
+  console.log(taskCount);
+  countElement.textContent = taskCount;
+}
+
+// filter complete task
+function filterTasks(filter) {
+  const taskItems = todoList.children;
+  for (let i = 0; i <= taskItems.length-1; i++) {
+    const taskItem = taskItems[i];
+    const completed = taskItem.getAttribute('checked') === 'true';
+    const isMatched =
+      (filter === 'all') ||
+      (filter === 'pending' && !completed) ||
+      (filter === 'completed' && completed);
+
+    taskItem.style.display = isMatched ? 'flex' : 'none';
   }
 }
 
@@ -34,6 +66,8 @@ async function addTodo() {
     });
     const newTodo = await response.json();
     displayTodoItem(newTodo);
+    updateTaskCount();
+    filterTasks(document.querySelector('span.active').id);
   } catch (error) {
     console.error('Error adding todo:', error);
   }
@@ -68,7 +102,10 @@ async function deleteTodo(id) {
     });
     if (response.ok) {
       removeTodoItem(id);
+      
     }
+    updateTaskCount();
+    filterTasks(document.querySelector('span.active').id);
   } catch (error) {
     console.error(`Error deleting todo with ID ${id}:`, error);
   }
@@ -88,6 +125,7 @@ async function toggleCompleted(id, status) {
       const updatedTodo = await response.json();
       updateTodoItem(id, updatedTodo);
     }
+    filterTasks(document.querySelector('span.active').id);
   } catch (error) {
     console.error(`Error toggling completed for todo with ID ${id}:`, error);
   }
@@ -165,5 +203,16 @@ todoForm.addEventListener('submit', event => {
   addTodo();
 });
 
+
+const filters = document.querySelectorAll(".filters span");
+filters.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector("span.active").classList.remove("active");
+        btn.classList.add("active");
+        showTodo(btn.id);
+    });
+});
+
 // Fetch todos when the page loads
 fetchTodos();
+updateTaskCount();
