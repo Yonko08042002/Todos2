@@ -1,24 +1,24 @@
 const API_URL = 'https://64106f42be7258e14529c12f.mockapi.io'
 
-const todoForm = document.querySelector('.todo-form')
-const todoInput = document.querySelector('.todo-input')
-const todoList = document.querySelector('.todo-list')
-// const clearAll = document.querySelector('.clear-btn')
+const todoForm = document.querySelector('.todo-form') as HTMLFormElement
+const todoInput = document.querySelector('.todo-input') as HTMLInputElement
+const todoList = document.querySelector('.todo-list') as HTMLUListElement
 
 // Call API
-async function fetchTodos () {
+async function fetchTodos() {
   try {
     const response = await fetch(`${API_URL}/todos`)
     const todos = await response.json()
     const filters = document.querySelectorAll('.filters span')
+
     filters.forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelector('span.active').classList.remove('active')
+        document.querySelector('span.active')?.classList.remove('active')
         btn.classList.add('active')
         filterTasks(btn.id)
       })
     })
-    todos.forEach(todo => {
+    todos.forEach((todo: { value: string, completed: boolean }) => {
       displayTodoItem(todo)
       updateTaskCount()
     })
@@ -27,31 +27,28 @@ async function fetchTodos () {
   }
 }
 
-// count
-function updateTaskCount () {
-  const countElement = document.querySelector('.count')
+//count
+function updateTaskCount() {
+  const countElement = document.querySelector('.count') as HTMLElement
   const taskCount = todoList.children.length
   console.log(taskCount)
-  countElement.textContent = taskCount
+  countElement.textContent = String(taskCount)
 }
 
 // filter complete task
-function filterTasks (filter) {
+function filterTasks(filter: string) {
   const taskItems = todoList.children
   for (let i = 0; i <= taskItems.length - 1; i++) {
-    const taskItem = taskItems[i]
+    const taskItem = taskItems[i] as HTMLElement
     const completed = taskItem.getAttribute('checked') === 'true'
-    const isMatched =
-      (filter === 'all') ||
-      (filter === 'pending' && !completed) ||
-      (filter === 'completed' && completed)
+    const isMatched = filter === 'all' || (filter === 'pending' && !completed) || (filter === 'completed' && completed)
 
     taskItem.style.display = isMatched ? 'flex' : 'none'
   }
 }
 
 // Add
-async function addTodo () {
+async function addTodo() {
   const todoName = todoInput.value
   if (todoName.trim() === '') {
     return
@@ -68,7 +65,7 @@ async function addTodo () {
     const newTodo = await response.json()
     displayTodoItem(newTodo)
     updateTaskCount()
-    filterTasks(document.querySelector('span.active').id)
+    filterTasks(document.querySelector('span.active')?.id || '')
   } catch (error) {
     console.error('Error adding todo:', error)
   }
@@ -77,7 +74,7 @@ async function addTodo () {
 }
 
 // Edit
-async function editTodo (id, newName) {
+async function editTodo(id: string, newName: string) {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {
       method: 'PUT',
@@ -96,7 +93,7 @@ async function editTodo (id, newName) {
 }
 
 // Delete
-async function deleteTodo (id) {
+async function deleteTodo(id: string) {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {
       method: 'DELETE'
@@ -105,14 +102,14 @@ async function deleteTodo (id) {
       removeTodoItem(id)
     }
     updateTaskCount()
-    filterTasks(document.querySelector('span.active').id)
+    filterTasks(document.querySelector('span.active')?.id || '')
   } catch (error) {
     console.error(`Error deleting todo with ID ${id}:`, error)
   }
 }
 
 // Toggle Completed
-async function toggleCompleted (id, status) {
+async function toggleCompleted(id: string, status: boolean) {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {
       method: 'PUT',
@@ -125,14 +122,14 @@ async function toggleCompleted (id, status) {
       const updatedTodo = await response.json()
       updateTodoItem(id, updatedTodo)
     }
-    filterTasks(document.querySelector('span.active').id)
+    filterTasks(document.querySelector('span.active')?.id || '')
   } catch (error) {
     console.error(`Error toggling completed for todo with ID ${id}:`, error)
   }
 }
 
 // Display a todo item
-function displayTodoItem (todo) {
+function displayTodoItem(todo: { id: string, value: string, completed: string }) {
   const todoItem = document.createElement('li')
   const todoNameTask = document.createElement('p')
   todoNameTask.textContent = todo.value
@@ -178,19 +175,19 @@ function displayTodoItem (todo) {
 }
 
 // Update a todo item
-function updateTodoItem (id, updatedTodo) {
-  const todoItem = todoList.querySelector(`li[data-id="${id}"]`)
+function updateTodoItem(id: string, updatedTodo: { value: string, completed: string }) {
+  const todoItem = todoList.querySelector(`li[data-id="${id}"]`) as HTMLLIElement
   if (todoItem) {
-    todoItem.querySelector('p').textContent = updatedTodo.value
-    todoItem.setAttribute('checked', updatedTodo.completed === 'true')
-    todoItem.querySelector('input[type="checkbox"]').checked = updatedTodo.completed === 'true'
-    todoItem.querySelector('p').classList.toggle('checked', updatedTodo.completed === 'true')
+    todoItem.querySelector('p')!.textContent = updatedTodo.value
+    todoItem.setAttribute('checked', SupdatedTodo.completed === 'true')
+    todoItem.querySelector('input[type="checkbox"]')!.checked = updatedTodo.completed === 'true'
+    todoItem.querySelector('p')!.classList.toggle('checked', updatedTodo.completed === 'true')
   }
 }
 
 // Remove a todo item
-function removeTodoItem (id) {
-  const todoItem = todoList.querySelector(`li[data-id="${id}"]`)
+function removeTodoItem(id: string) {
+  const todoItem = todoList.querySelector(`li[data-id="${id}"]`) as HTMLLIElement
   if (todoItem) {
     todoItem.remove()
   }
@@ -205,9 +202,9 @@ todoForm.addEventListener('submit', event => {
 const filters = document.querySelectorAll('.filters span')
 filters.forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelector('span.active').classList.remove('active')
+    document.querySelector('span.active')?.classList.remove('active')
     btn.classList.add('active')
-    displayTodoItem(btn.id)
+    showTodo(btn.id)
   })
 })
 

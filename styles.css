@@ -31,7 +31,6 @@ body {
   width: 100%;
   left: 50%;
   top: 50%;
-
 }
 
 .todo-form {
@@ -44,6 +43,7 @@ body {
   margin-bottom: 25px;
   width: 100%;
 }
+
 
 .todo-form input {
   flex: 1;
@@ -85,21 +85,20 @@ ul li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
-ul li p{
-    width: 60%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+ul li p {
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.settings{
+.settings {
   position: absolute;
   right: 0;
   margin-right: 10px;
 }
-.settings button{
-  margin-left:5px;
+.settings button {
+  margin-left: 5px;
   border: none;
   opacity: 0.6;
   outline: none;
@@ -110,7 +109,7 @@ ul li p{
   border-radius: 4px;
   letter-spacing: 0.3px;
   transition: transform 0.25s ease;
-  background: linear-gradient(135deg, #1798fb 0%, #2D5CFE 100%);
+  background: linear-gradient(135deg, #1798fb 0%, #2d5cfe 100%);
 }
 
 .todo-list {
@@ -123,7 +122,7 @@ ul li p{
 
 .todo-list::-webkit-scrollbar {
   width: 8px;
-  border-radius:4px ;
+  border-radius: 4px;
 }
 
 .todo-list::-webkit-scrollbar-track {
@@ -131,7 +130,7 @@ ul li p{
 }
 
 .todo-list::-webkit-scrollbar-thumb {
-  background-color: #1798fb ;
+  background-color: #1798fb;
   border-radius: 4px;
 }
 
@@ -140,11 +139,11 @@ ul li p{
 }
 
 ul li p.checked {
-  color: #1E90FF;
-  text-decoration: line-through #1E90FF;
+  color: #1e90ff;
+  text-decoration: line-through #1e90ff;
 }
-ul li input{
-  width: 10%;;
+ul li input {
+  width: 10%;
 }
 ul li span {
   position: absolute;
@@ -161,7 +160,7 @@ ul li span {
 }
 
 ul li span:hover {
-  color: #1E90FF;
+  color: #1e90ff;
 }
 
 .select {
@@ -174,7 +173,7 @@ ul li span:hover {
   border: none;
   outline: none;
   padding: 10px 20px 10px 20px;
-  background: #1E90FF;
+  background: #1e90ff;
   color: #fff;
   cursor: pointer;
   font-size: 16px;
@@ -186,27 +185,26 @@ ul li span:hover {
   text-overflow: ellipsis;
 }
 
-.controls{
+.controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.controls{
+.controls {
   margin-top: 10px;
   padding: 18px 25px;
-
 }
-.filters span{
+.filters span {
   margin: 0 8px;
   font-size: 17px;
   color: #444444;
   cursor: pointer;
 }
-.filters span:first-child{
+.filters span:first-child {
   margin-left: 0;
 }
-.filters span.active{
-  color: #3C87FF;
+.filters span.active {
+  color: #3c87ff;
 }
 
 /* .controls .clear-btn{
@@ -228,34 +226,34 @@ ul li span:hover {
   background: rgba(30, 144, 255, 0.3);
 }
 
-.settings li:hover{
+.settings li:hover {
   background: #f5f5f5;
 }
-.settings li i{
+.settings li i {
   padding-right: 8px;
 }
 @media (max-width: 400px) {
-  body{
+  body {
     padding: 0 10px;
   }
   .wrapper {
     padding: 20px 0;
   }
-  .filters span{
+  .filters span {
     margin: 0 5px;
   }
-  .task-input{
+  .task-input {
     padding: 0 20px;
   }
-  .controls{
+  .controls {
     padding: 18px 20px;
   }
-  .task-box{
+  .task-box {
     margin-top: 20px;
     margin-right: 5px;
     padding: 0 15px 10px 20px;
   }
-  .task label input{
+  .task label input {
     margin-top: 4px;
   }
 }

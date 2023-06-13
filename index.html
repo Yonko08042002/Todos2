@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Todo List</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
+  <head>
+    <title>Todo List</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" href="./dist//main.js" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
     <div class="todo-box">
-        <h1>Todo List</h1>   
-        <form class="todo-form">
-            <input type="text" class="todo-input" placeholder="Add a new todo">
-            <button type="submit" class="addTask" >Add</button>
-        </form>
-        
-        <ul class="todo-list">
+      <h1 class="text-6xl">Todo List</h1>
+      <form class="todo-form">
+        <input type="text" class="todo-input" placeholder="Add a new todo" />
+        <button type="submit" class="addTask">Add</button>
+      </form>
 
-        </ul>
-        <div class="controls">
-          <span>You have <span class="count"></span> task.</span>
-          <div class="filters">
-            <span class="active" id="all">All</span>
-            <span id="pending">Pending</span>
-            <span id="completed">Completed</span>
-          </div>
+      <ul class="todo-list "></ul>
+      <div class="controls">
+        <span>You have <span class="count"></span> task.</span>
+        <div class="filters">
+          <span class="active" id="all">All</span>
+          <span id="pending">Pending</span>
+          <span id="completed">Completed</span>
         </div>
+      </div>
     </div>
-  <script src="script.js"></script>
-</body>
+    <script src="dist/main.js"></script>
+  </body>
 </html>
